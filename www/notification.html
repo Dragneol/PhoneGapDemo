@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/index.css">
+    <script type="text/javascript" src="cordova.js"></script>
+</head>
+
+<body>
+    <!-- 1. cordova-plugin-dialogs (Cordova Notification Plugin) -->
+    <!--
+        Description: Method lists: navigator.notification.
+        - alert
+        - confirm
+        - prompt
+        - beep
+     -->
+    <div class="app">
+        <button onclick="notificationAlert()">Alert Notification</button>
+        <button onclick="notificationConfirm()">Confirm Notification</button>
+        <button onclick="notificationPromt()">Promt Notification</button>
+        <button onclick="notificationBeep()">Beep Notification</button>
+        <script>
+            //-----Alert
+            function notificationAlert() {
+                navigator.notification.alert("This is Alert Notification", alertCallback, 'Alert',
+                    'Alert PhoneGap');
+
+                function alertCallback() {
+                    alert('Back');
+                }
+            }
+
+            //-----Comfirm
+            function notificationConfirm() {
+                navigator.notification.confirm("Survey for presentation", confirmCallback, 'Review This Presentation',
+                    [
+                        'Marvelous',
+                        'Wonderful',
+                        'Best presentation ever'
+                    ]);
+
+                function confirmCallback(buttonIndex) {
+                    if (buttonIndex == 1) {
+                        alert('This is the best');
+                    } else if (buttonIndex == 2) {
+                        alert('Very understandable');
+                    } else {
+                        alert('This must be 10');
+                    }
+                }
+            }
+
+            //-----Promt
+            function notificationPromt() {
+                navigator.notification.prompt("Please...write your name here: ", onPrompt, 'Check Name', ['OK', 'Exit'],
+                    '');
+
+                function onPrompt(results) {
+                    if (results.buttonIndex == 0) {
+                        alert("Thanks " + results.input1);
+                    } else if (results.buttonIndex == 1) {
+                        alert("Arigatou " + results.input1+"-san");
+                    } else {
+                        alert("Je vous remercie " + results.input1);
+                    }
+                }
+            }
+
+            //-----Beep
+            function notificationBeep() {
+                navigator.notification.beep(5);
+                navigator.vibrate([1000, 1000, 3000]);
+            }
+        </script>
+    </div>
+</body>
+
+</html>
